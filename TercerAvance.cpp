@@ -20,7 +20,7 @@ long computeHash(const std::string& str, int end) {
 // Función para calcular el hash deslizante de una subcadena
 long recalculateHash(long oldHash, char oldChar, char newChar, long h) {
     long newHash = (oldHash - oldChar * h) * BASE + newChar;
-    newHash %= PRIME;
+    newHash %= PRIME;//Modulos Derivados del Inicial
     if (newHash < 0)
         newHash += PRIME;
     return newHash;
@@ -33,14 +33,14 @@ double checarPlagio(const std::string& mainText, const std::string& compareText,
 
     long h = 1;
     for (int i = 0; i < windowSize - 1; ++i)
-        h = (h * BASE) % PRIME;
+        h = (h * BASE) % PRIME;//Modulo Original del Texto
 
     std::unordered_set<long> mainHashes;
     long mainHash = computeHash(mainText, windowSize);
     mainHashes.insert(mainHash);
 
     for (size_t i = windowSize; i < mainText.length(); ++i) {
-        mainHash = recalculateHash(mainHash, mainText[i - windowSize], mainText[i], h);
+        mainHash = recalculateHash(mainHash, mainText[i - windowSize], mainText[i], h);//Texto Hash Texto Previo, Texto Previo, Texto Nuevo, Modulo Original del Texto
         mainHashes.insert(mainHash);
     }
 
@@ -79,7 +79,7 @@ std::string readFileContent(const std::string& filePath) {
 int main() {
     std::string mainFilePath;
     int numFiles;
-    int windowSize = 10;
+    int windowSize = 10;//Tamano de cada bloque que se hashea la comparacion
 
     std::cout << "Ingrese la ruta del archivo de texto principal: ";
     std::cin >> mainFilePath;

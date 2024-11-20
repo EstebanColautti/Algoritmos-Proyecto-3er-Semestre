@@ -1,0 +1,4 @@
+Datos avance 4
+Se añadió un html provisional en lo que se implementa la UI, para desplegar resultados.
+Se diseño la base de la UI.
+Y se mejoro el código en general.
